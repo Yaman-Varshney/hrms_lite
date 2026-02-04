@@ -1,27 +1,25 @@
-function EmployeeSection({ onEmployeeClick}) {
+function EmployeeSection({ onEmployeeClick }) {
   const [employees, setEmployees] = React.useState([]);
   const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(true); // <-- track loading
 
   const load = async () => {
+    setLoading(true); // start loading
     try {
-      setEmployees(await Api.getEmployees());
+      const data = await Api.getEmployees();
+      setEmployees(data);
+      setError("");
     } catch (e) {
-      setError(e.message);
+      setError(e.message || "Failed to load employees");
+      setEmployees([]);
+    } finally {
+      setLoading(false); // done loading
     }
   };
 
   React.useEffect(() => {
-  const fetchEmployees = async () => {
-    try {
-      setEmployees(await Api.getEmployees());
-    } catch (e) {
-      setError(e.message);
-    }
-  };
-
-  fetchEmployees();
-}, []);
-
+    load();
+  }, []);
 
   const add = async (data) => {
     try {
@@ -42,7 +40,12 @@ function EmployeeSection({ onEmployeeClick}) {
       <h2>Employee Management</h2>
       {error && <p className="error">{error}</p>}
       <EmployeeForm onAdd={add} />
-      <EmployeeTable employees={employees} onDelete={remove} onRowClick={onEmployeeClick} />
+      <EmployeeTable
+        employees={employees}
+        loading={loading}          // pass loading prop
+        onDelete={remove}
+        onRowClick={onEmployeeClick}
+      />
     </>
   );
 }

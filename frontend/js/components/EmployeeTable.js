@@ -1,5 +1,9 @@
-function EmployeeTable({ employees, onDelete, onRowClick }) {
-  if (employees.length === 0) {
+function EmployeeTable({ employees, loading, onDelete, onRowClick }) {
+  if (loading) {
+    return <p>Loading employees...</p>; // <-- show while fetching
+  }
+
+  if (!employees || employees.length === 0) {
     return <p className="empty">No employees found</p>;
   }
 
@@ -12,9 +16,7 @@ function EmployeeTable({ employees, onDelete, onRowClick }) {
       </thead>
       <tbody>
         {employees.map(emp => (
-          
           <tr className="employee-row" key={emp.employee_id}>
-
             <td>{emp.employee_id}</td>
             <td>{emp.full_name}</td>
             <td>{emp.email}</td>
@@ -25,7 +27,7 @@ function EmployeeTable({ employees, onDelete, onRowClick }) {
               </button>
             </td>
             <td>
-              <button className="success"  onClick={() => onRowClick(emp.employee_id)}>
+              <button className="success" onClick={() => onRowClick(emp.employee_id)}>
                 View
               </button>
             </td>
