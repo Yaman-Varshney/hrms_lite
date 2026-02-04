@@ -1,24 +1,33 @@
 function EmployeeDetailsPage({ employeeId, onBack }) {
   const [summary, setSummary] = React.useState(null);
   const [attendance, setAttendance] = React.useState([]);
-
   const [fromDate, setFromDate] = React.useState("");
   const [toDate, setToDate] = React.useState("");
 
+  // Fetch employee summary and attendance
   React.useEffect(() => {
-    fetch(`${API_BASE}/employees/${employeeId}/attendance/summary`)
-      .then(res => res.json())
-      .then(setSummary);
+    const fetchData = async () => {
+      try {
+        const summaryRes = await fetch(`${API_BASE}/employees/${employeeId}/attendance/summary`);
+        const summaryData = await summaryRes.json();
+        setSummary(summaryData);
 
-    fetch(`${API_BASE}/employees/${employeeId}/attendance`)
-      .then(res => res.json())
-      .then(setAttendance);
+        const attendanceRes = await fetch(`${API_BASE}/employees/${employeeId}/attendance`);
+        const attendanceData = await attendanceRes.json();
+        setAttendance(attendanceData);
+      } catch (err) {
+        console.error("Failed to load employee data:", err);
+      }
+    };
+
+    fetchData();
   }, [employeeId]);
 
   if (!summary) return <p>Loading employee details...</p>;
 
-  // ✅ FRONTEND FILTERING
+  // Frontend filtering
   const filteredAttendance = attendance.filter(record => {
+    if (!record.date || !record.status) return false; // ignore invalid records
     if (fromDate && record.date < fromDate) return false;
     if (toDate && record.date > toDate) return false;
     return true;
@@ -29,9 +38,7 @@ function EmployeeDetailsPage({ employeeId, onBack }) {
       <button className="back-btn" onClick={onBack}>← Back</button>
 
       <h2>{summary.full_name}</h2>
-      <p>
-        Total Present Days: <b>{summary.total_present_days}</b>
-      </p>
+      <p>Total Present Days: <b>{summary.total_present_days}</b></p>
 
       {/* Filters */}
       <div className="filters">
@@ -43,7 +50,6 @@ function EmployeeDetailsPage({ employeeId, onBack }) {
             onChange={e => setFromDate(e.target.value)}
           />
         </label>
-
         <label>
           To:
           <input
@@ -66,14 +72,17 @@ function EmployeeDetailsPage({ employeeId, onBack }) {
             </tr>
           </thead>
           <tbody>
-            {filteredAttendance.map(row => (
-              <tr key={row.date}>
-                <td>{row.date}</td>
-                <td>
-                  {row.status === "Present" ? "✅ Present" : "❌ Absent"}
-                </td>
-              </tr>
-            ))}
+            {filteredAttendance.map(row => {
+              const isPresent = row.status?.trim().toUpperCase();
+              return (
+                <tr key={row.date}>
+                  <td>{row.date}</td>
+                  <td >
+                    {isPresent}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       )}

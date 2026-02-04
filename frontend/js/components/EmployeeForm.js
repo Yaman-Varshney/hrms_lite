@@ -1,4 +1,4 @@
-export default function EmployeeForm({ onEmployeeAdded }) {
+function EmployeeForm({ onEmployeeAdded }) {
   const [form, setForm] = React.useState({
     employee_id: "",
     full_name: "",
@@ -37,37 +37,37 @@ export default function EmployeeForm({ onEmployeeAdded }) {
 
 
   async function handleSubmit(e) {
-    e.preventDefault();
-    setFormError("");
+  e.preventDefault();
+  setFormError("");
 
-    if (!validate()) return;
+  if (!validate()) return;
 
-    try {
-      const res = await fetch(`${API_BASE}/employees`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
-      });
+  try {
+    const res = await fetch(`${API_BASE}/employees`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form)
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (!res.ok) {
-        setFormError(data.error || "Something went wrong");
-        return;
-      }
-
-      onEmployeeAdded();
-      setForm({
-        employee_id: "",
-        full_name: "",
-        email: "",
-        department: ""
-      });
-
-    } catch (err) {
-      setFormError("Unable to connect to server");
+    if (!res.ok) {
+      // If API returned a 4xx/5xx
+      setFormError(data.error || data.detail || "Something went wrong");
+      return;
     }
+
+    // Success
+    onEmployeeAdded(); // refresh parent list
+    setForm({ employee_id: "", full_name: "", email: "", department: "" });
+
+  } catch (err) {
+    // Network error
+    console.log(err);
+    setFormError("Unable to connect to server");
   }
+}
+
 
   return (
     <form onSubmit={handleSubmit} className="employee-form">

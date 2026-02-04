@@ -22,13 +22,21 @@ function EmployeeSection({ onEmployeeClick }) {
   }, []);
 
   const add = async (data) => {
+  try {
+    const newEmployee = await Api.addEmployee(data); // await creation
+    // Option 1: Reload all employees
     try {
-      await Api.addEmployee(data);
-      load();
+      await load(); 
     } catch (e) {
-      alert(e.message);
+      console.warn("Failed to reload employees after adding:", e.message);
+      // Keep the previous employees plus the new one to avoid empty table
+      setEmployees(prev => [...prev, newEmployee]);
     }
-  };
+  } catch (e) {
+    alert("Failed to add employee: " + (e.message || e));
+  }
+};
+
 
   const remove = async (id) => {
     await Api.deleteEmployee(id);
@@ -39,7 +47,7 @@ function EmployeeSection({ onEmployeeClick }) {
     <>
       <h2>Employee Management</h2>
       {error && <p className="error">{error}</p>}
-      <EmployeeForm onAdd={add} />
+      <EmployeeForm onEmployeeAdded={load} />
       <EmployeeTable
         employees={employees}
         loading={loading}          // pass loading prop
