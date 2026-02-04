@@ -10,7 +10,7 @@ function EmployeeDetailsPage({ employeeId, onBack }) {
       .then(res => res.json())
       .then(setSummary);
 
-    fetch(`${API_BASE}/api/employees/${employeeId}/attendance`)
+    fetch(`${API_BASE}/employees/${employeeId}/attendance`)
       .then(res => res.json())
       .then(setAttendance);
   }, [employeeId]);
