@@ -1,1 +1,1 @@
-const API_BASE = "https://yamanvarshney.pythonanywhere.com";
+const API_BASE = "https://yamanvarshney.pythonanywhere.com/api";
