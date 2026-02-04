@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>HRMS Lite</title>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <link rel="stylesheet" href="./styles/main.css" />
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <!-- Config & Services -->
+  <script type="text/babel" src="./js/config.js"></script>
+  <script type="text/babel" src="./js/services/api.js"></script>
+
+  <script src="js/utils/validators.js"></script>
+  <script src="js/utils/attendanceUtils.js"></script>
+
+  <!-- Components -->
+  <script type="text/babel" src="./js/components/EmployeeForm.js"></script>
+  <script type="text/babel" src="./js/components/EmployeeTable.js"></script>
+  <script type="text/babel" src="./js/components/EmployeeSection.js"></script>
+  <script type="text/babel" src="./js/components/AttendanceSection.js"></script>
+  <script type="text/babel" src="./js/components/EmployeeDetailsPage.js"></script>
+
+  <script type="text/babel" src="./js/components/LandingPage.js"></script>
+    <script type="text/babel" src="./js/components/EmployeePage.js"></script>
+    <script type="text/babel" src="./js/components/AttendancePage.js"></script>
+    <script type="text/babel" src="./js/components/AttendanceHeatmap.js"></script>
+
+
+
+  <!-- App -->
+  <script type="text/babel" src="./js/App.js"></script>
+</body>
+</html>

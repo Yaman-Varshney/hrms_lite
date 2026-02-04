@@ -1,0 +1,166 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  margin: 0;
+}
+
+header {
+  background: #1f2937;
+  color: white;
+  padding: 16px;
+  text-align: center;
+}
+
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 6px;
+}
+
+input, select, button {
+  padding: 8px;
+  margin: 6px 0;
+  width: 100%;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button.danger {
+  background: #dc2626;
+}
+
+button.success {
+  background: #059669;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th, td {
+  border: 1px solid #e5e7eb;
+  padding: 8px;
+}
+
+th {
+  background: #f3f4f6;
+}
+
+.error {
+  color: red;
+}
+
+.empty {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.landing {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.card {
+  width: 260px;
+  height: 160px;
+  background: #2563eb;
+  color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.card.attendance {
+  background: #059669;
+}
+
+.card h2 {
+  margin: 0;
+}
+
+.back-btn {
+  margin-bottom: 10px;
+  background: #6b7280;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 12px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-error {
+  margin-top: 12px;
+  padding: 10px;
+  background: #fdecea;
+  color: #b71c1c;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(14, 12px);
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.heatmap-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: #eee;
+}
+
+.present {
+  background: #4caf50;
+}
+
+.absent {
+  background: #e57373;
+}
+
+.heatmap {
+  display: flex;
+  gap: 3px;
+}
+
+.week-column {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.day-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.level-0 { background: #ebedf0; }
+.level-1 { background: #c6e48b; }
+.level-2 { background: #7bc96f; }
+.level-3 { background: #239a3b; }
+.level-4 { background: #196127; }
