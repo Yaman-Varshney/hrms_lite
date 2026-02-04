@@ -6,11 +6,11 @@ function EmployeeDetailsPage({ employeeId, onBack }) {
   const [toDate, setToDate] = React.useState("");
 
   React.useEffect(() => {
-    fetch(`http://localhost:8000/api/employees/${employeeId}/attendance/summary`)
+    fetch(`${API_BASE}/employees/${employeeId}/attendance/summary`)
       .then(res => res.json())
       .then(setSummary);
 
-    fetch(`http://localhost:8000/api/employees/${employeeId}/attendance`)
+    fetch(`${API_BASE}/api/employees/${employeeId}/attendance`)
       .then(res => res.json())
       .then(setAttendance);
   }, [employeeId]);
